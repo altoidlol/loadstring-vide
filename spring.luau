@@ -1,4 +1,4 @@
-local graph = loadstring(game:HttpGet("https://raw.githubusercontent.com/altoidlol/loadstring-vide/refs/heads/main/graph.luau"))()
+local graph = loadstring(game:HttpGet("https://raw.githubusercontent.com/altoidlol/loadstring-vide/refs/heads/main/graph.luau"))
 type Node<T> = graph.Node<T>
 type SourceNode<T> = graph.SourceNode<T>
 local create_node = graph.create_node
