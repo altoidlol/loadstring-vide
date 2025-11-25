@@ -1,4 +1,4 @@
-local graph = loadstring(game:HttpGet("https://raw.githubusercontent.com/altoidlol/loadstring-vide/refs/heads/main/graph.luau"))()
+local graph = loadstring(game:HttpGet("https://raw.githubusercontent.com/altoidlol/loadstring-vide/refs/heads/main/graph.luau"))
 local create_node = graph.create_node
 local push_scope_as_child_of = graph.push_scope_as_child_of
 local assert_stable_scope = graph.assert_stable_scope
