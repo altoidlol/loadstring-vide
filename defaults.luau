@@ -1,5 +1,5 @@
-local Enum = game and Enum :: never
-local Color3 = game and Color3 :: never
+local Enum = game and Enum
+local Color3 = game and Color3
 
 return {
     Part = {
