@@ -1,5 +1,5 @@
-local action = loadstring(game:HttpGet("https://raw.githubusercontent.com/altoidlol/loadstring-vide/refs/heads/main/action.luau"))()()
-local cleanup = loadstring(game:HttpGet("https://raw.githubusercontent.com/altoidlol/loadstring-vide/refs/heads/main/cleanup.luau"))()
+local action = loadstring(game:HttpGet("https://raw.githubusercontent.com/altoidlol/loadstring-vide/refs/heads/main/action.luau"))()
+local cleanup = loadstring(game:HttpGet("https://raw.githubusercontent.com/altoidlol/loadstring-vide/refs/heads/main/cleanup.luau"))
 
 local function changed<T>(property: string, callback: (T) -> ())
     return action(function(instance)
