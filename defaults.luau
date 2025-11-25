@@ -1,6 +1,3 @@
-local Enum = game and Enum
-local Color3 = game and Color3
-
 return {
     Part = {
         Material = Enum.Material.SmoothPlastic,
