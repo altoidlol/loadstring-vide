@@ -1,5 +1,3 @@
-local typeof = game and typeof
-
 local flags = loadstring(game:HttpGet("https://raw.githubusercontent.com/altoidlol/loadstring-vide/refs/heads/main/flags.luau"))()
 local implicit_effect = loadstring(game:HttpGet("https://raw.githubusercontent.com/altoidlol/loadstring-vide/refs/heads/main/implicit_effect.luau"))()
 local _, is_action = loadstring(game:HttpGet("https://raw.githubusercontent.com/altoidlol/loadstring-vide/refs/heads/main/action.luau"))()()
