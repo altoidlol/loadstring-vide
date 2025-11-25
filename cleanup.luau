@@ -1,4 +1,4 @@
-local graph = loadstring(game:HttpGet("https://raw.githubusercontent.com/altoidlol/loadstring-vide/refs/heads/main/graph.luau"))()
+local graph = loadstring(game:HttpGet("https://raw.githubusercontent.com/altoidlol/loadstring-vide/refs/heads/main/graph.luau"))
 local get_scope = graph.get_scope
 local push_cleanup = graph.push_cleanup
 
