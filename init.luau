@@ -1,4 +1,4 @@
-local vide = loadstring(game:HttpGet("https://raw.githubusercontent.com/altoidlol/loadstring-vide/refs/heads/main/lib.luau"))()
+local vide = loadstring(game:HttpGet("https://raw.githubusercontent.com/altoidlol/loadstring-vide/refs/heads/main/lib.luau", true))()
 
 export type source<T> = vide.source<T>
 export type Source<T> = vide.Source<T>
