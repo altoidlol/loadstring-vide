@@ -15,7 +15,7 @@ local function action(callback: (Instance) -> (), priority: number?): Action
         callback = callback
     }
 
-    setmetatable(a :: any, ActionMT)
+    setmetatable(a, ActionMT)
 
     return table.freeze(a)
 end
