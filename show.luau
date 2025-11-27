@@ -1,8 +1,8 @@
-local source = loadstring(game:HttpGet("https://raw.githubusercontent.com/altoidlol/loadstring-vide/refs/heads/main/source.luau"))()
-local derive = loadstring(game:HttpGet("https://raw.githubusercontent.com/altoidlol/loadstring-vide/refs/heads/main/derive.luau"))()
-local effect = loadstring(game:HttpGet("https://raw.githubusercontent.com/altoidlol/loadstring-vide/refs/heads/main/effect.luau"))()
-local untrack = loadstring(game:HttpGet("https://raw.githubusercontent.com/altoidlol/loadstring-vide/refs/heads/main/untrack.luau"))()
-local switch = loadstring(game:HttpGet("https://raw.githubusercontent.com/altoidlol/loadstring-vide/refs/heads/main/switch.luau"))()
+local source = require("./source")
+local derive = require("./derive")
+local effect = require("./effect")
+local untrack = require("./untrack")
+local switch = require("./switch")
 
 type Array<T> = { T }
 type Source<T> = () -> T

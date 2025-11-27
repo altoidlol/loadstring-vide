@@ -1,4 +1,4 @@
-local flags = loadstring(game:HttpGet("https://raw.githubusercontent.com/altoidlol/loadstring-vide/refs/heads/main/flags.luau"))()
+local flags = require("./flags")
 
 export type SourceNode<T> = {
     cache: T,
@@ -58,7 +58,7 @@ local function assert_stable_scope(): Node<unknown>
 
     if not scope then
         local caller_name = debug.info(2, "n")
-        return error(`cannot use {caller_name}() outside a stable or reactive scope`, 0)
+        return error("cannot use "..caller_name.."() outside a stable or reactive scope", 0)
     elseif scope.effect then
         error("cannot create a new reactive scope inside another reactive scope", 0)
     end
@@ -95,7 +95,7 @@ local function flush_cleanups<T>(node: Node<T>)
     if node.cleanups then
         for _, fn in node.cleanups do
             local ok, err: string? = xpcall(fn, debug.traceback)
-            if not ok then error(`cleanup error: {err}`, 0) end
+            if not ok then error("cleanup error: "..(err or "nil"), 0) end
         end
 
         table.clear(node.cleanups)
@@ -167,7 +167,7 @@ local function evaluate_node<T>(node: Node<T>)
             if not ok then
                 table.clear(update_queue)
                 update_queue.n = 0
-                error(`effect error stacktrace\n{new_value :: string}`, 0)
+                error("effect error stacktrace\n"..new_value :: string, 0)
             end
 
             node.cache = new_value :: T
@@ -187,7 +187,7 @@ local function evaluate_node<T>(node: Node<T>)
         if not ok then
             table.clear(update_queue)
             update_queue.n = 0
-            error(`effect error:\n{new_value}\n`, 0)
+            error("effect error:\n"..new_value.."\n", 0)
         end
     
         node.cache = new_value

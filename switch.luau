@@ -1,7 +1,7 @@
-local branch = loadstring(game:HttpGet("https://raw.githubusercontent.com/altoidlol/loadstring-vide/refs/heads/main/branch.luau"))()
-local source = loadstring(game:HttpGet("https://raw.githubusercontent.com/altoidlol/loadstring-vide/refs/heads/main/source.luau"))()
-local effect = loadstring(game:HttpGet("https://raw.githubusercontent.com/altoidlol/loadstring-vide/refs/heads/main/effect.luau"))()
-local timeout = loadstring(game:HttpGet("https://raw.githubusercontent.com/altoidlol/loadstring-vide/refs/heads/main/timeout.luau"))()()
+local branch = require("./branch")
+local source = require("./source")
+local effect = require("./effect")
+local timeout = require("./timeout")()
 
 type Array<T> = { T }
 type Map<K, V> = { [K]: V }

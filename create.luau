@@ -1,42 +1,46 @@
-local defaults = loadstring(game:HttpGet("https://raw.githubusercontent.com/altoidlol/loadstring-vide/refs/heads/main/defaults.luau"))()
-local apply = loadstring(game:HttpGet("https://raw.githubusercontent.com/altoidlol/loadstring-vide/refs/heads/main/apply.luau"))()
-local flags = loadstring(game:HttpGet("https://raw.githubusercontent.com/altoidlol/loadstring-vide/refs/heads/main/flags.luau"))()
+local defaults = require("./defaults")
+local apply = require("./apply")
+local flags = require("./flags")
 
 local ctor_cache = {} :: { [string]: () -> Instance }
 
 setmetatable(ctor_cache :: any, {
-    __index = function(self, class)
-        local function ctor(properties: Props): Instance
-            local ok, instance: Instance = pcall(Instance.new, class :: any)
-            if not ok then error(`invalid class name { class }`, 0) end
+	__index = function(self, class)
+		local function ctor(properties: Props): Instance
+			local ok, instance: Instance = pcall(Instance.new, class :: any)
+			if not ok then
+				error("invalid class name " .. class, 0)
+			end
 
-            if flags.defaults then
-                local default: { [string]: unknown }? = defaults[class]
-                if default then
-                    for i, v in default do
-                        (instance :: any)[i] = v
-                    end
-                end
-            end
+			if flags.defaults then
+				local default: { [string]: unknown }? = defaults[class]
+				if default then
+					for i, v in default do
+						(instance :: any)[i] = v
+					end
+				end
+			end
 
-            return apply(instance, properties)
-        end
+			return apply(instance, properties)
+		end
 
-        self[class] = ctor
-        return ctor
-    end
+		self[class] = ctor
+		return ctor
+	end,
 })
 
 local function create_instance(class: string)
-    return ctor_cache[class]
+	return ctor_cache[class]
 end
 
 local function clone_instance(instance: Instance)
-    return function(properties: Props): Instance
-        local clone = instance:Clone()
-        if not clone then error "attempt to clone a non-archivable instance" end
-        return apply(clone, properties)
-    end
+	return function(properties: Props): Instance
+		local clone = instance:Clone()
+		if not clone then
+			error("attempt to clone a non-archivable instance")
+		end
+		return apply(clone, properties)
+	end
 end
 
 local function create(class_or_instance: string | Instance, props: Props?): ((Props) -> Instance) | Instance
@@ -59,33 +63,12 @@ type Props = { [any]: any }
 
 type Create<Name, Instance> = ((Name, Props) -> Instance) & ((Name) -> (Props) -> Instance)
 
-return (create :: any) ::
-	& ( <T>(T & Instance) -> (Props) -> T )
-	& ( <T>(T & Instance, Props) -> T )
-	& Create<"Folder", Folder>
-	& Create<"BillboardGui", BillboardGui>
-	& Create<"CanvasGroup", CanvasGroup>
-	& Create<"Frame", Frame>
-	& Create<"ImageButton", ImageButton>
-	& Create<"ImageLabel", ImageLabel>
-	& Create<"ScreenGui", ScreenGui>
-	& Create<"ScrollingFrame", ScrollingFrame>
-	& Create<"SurfaceGui", SurfaceGui>
-	& Create<"TextBox", TextBox>
-	& Create<"TextButton", TextButton>
-	& Create<"TextLabel", TextLabel>
-	& Create<"UIAspectRatioConstraint", UIAspectRatioConstraint>
-	& Create<"UICorner", UICorner>
-	& Create<"UIGradient", UIGradient>
-	& Create<"UIGridLayout", UIGridLayout>
-	& Create<"UIListLayout", UIListLayout>
-	& Create<"UIPadding", UIPadding>
-	& Create<"UIPageLayout", UIPageLayout>
-	& Create<"UIScale", UIScale>
-	& Create<"UISizeConstraint", UISizeConstraint>
-	& Create<"UIStroke", UIStroke>
-	& Create<"UITableLayout", UITableLayout>
-	& Create<"UITextSizeConstraint", UITextSizeConstraint>
-	& Create<"VideoFrame", VideoFrame>
-	& Create<"ViewportFrame", ViewportFrame>
-	& Create<string, Instance>
+return (
+	create :: any
+) :: & (<T>(T & Instance) -> (Props) -> T) & (<T>(T & Instance, Props) -> T) & Create<"Folder", Folder> & Create<"BillboardGui", BillboardGui> & Create<"CanvasGroup", CanvasGroup> & Create<"Frame", Frame> & Create<"ImageButton", ImageButton> & Create<"ImageLabel", ImageLabel> & Create<"ScreenGui", ScreenGui> & Create<"ScrollingFrame", ScrollingFrame> & Create<"SurfaceGui", SurfaceGui> & Create<"TextBox", TextBox> & Create<"TextButton", TextButton> & Create<"TextLabel", TextLabel> & Create<"UIAspectRatioConstraint", UIAspectRatioConstraint> & Create<"UICorner", UICorner> & Create<"UIGradient", UIGradient> & Create<"UIGridLayout", UIGridLayout> & Create<"UIListLayout", UIListLayout> & Create<"UIPadding", UIPadding> & Create<"UIPageLayout", UIPageLayout> & Create<"UIScale", UIScale> & Create<"UISizeConstraint", UISizeConstraint> & Create<"UIStroke", UIStroke> & Create<"UITableLayout", UITableLayout> & Create<
+	"UITextSizeConstraint",
+	UITextSizeConstraint
+> & Create<"VideoFrame", VideoFrame> & Create<
+	"ViewportFrame",
+	ViewportFrame
+> & Create<string, Instance>

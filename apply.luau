@@ -1,7 +1,7 @@
-local flags = loadstring(game:HttpGet("https://raw.githubusercontent.com/altoidlol/loadstring-vide/refs/heads/main/flags.luau"))()
-local implicit_effect = loadstring(game:HttpGet("https://raw.githubusercontent.com/altoidlol/loadstring-vide/refs/heads/main/implicit_effect.luau"))()
-local _, is_action = loadstring(game:HttpGet("https://raw.githubusercontent.com/altoidlol/loadstring-vide/refs/heads/main/action.luau"))()()
-local graph = loadstring(game:HttpGet("https://raw.githubusercontent.com/altoidlol/loadstring-vide/refs/heads/main/graph.luau"))()
+local flags = require("./flags")
+local implicit_effect = require("./implicit_effect")
+local _, is_action = require("./action")()
+local graph = require("./graph")
 type Node<T> = graph.Node<T>
 
 type Array<V> = { V }
@@ -45,11 +45,11 @@ local function borrow_cache(): Cache
     else
         return {
             events = {},
-            actions = setmetatable({} :: any, { -- lazy init
+            actions = setmetatable({}, { -- lazy init
                 __index = function(self, i) self[i] = {}; return self[i] end
             }),
             parent = nil,
-            nested_debug = setmetatable({} :: any, {
+            nested_debug = setmetatable({}, {
                 __index = function(self, i: number) self[i] = {}; return self[i] end
             }),
             nested_stack = {}
@@ -57,7 +57,7 @@ local function borrow_cache(): Cache
     end
 end
 
-local function return_cache(cache: Cache )
+local function return_cache(cache: Cache)
     free_cache = cache
 end
 
@@ -66,7 +66,7 @@ local function process_properties(properties: Map<unknown, unknown>, instance: I
         if type(property) == "string" then
             if flags.strict then -- check for duplicate property assignment at nesting depth
                 if cache.nested_debug[depth][property] then
-                    error(`duplicate property {property} at depth {depth}`, 0)
+                    error("duplicate property "..property.." at depth "..depth, 0)
                 end
                 cache.nested_debug[depth][property] = true
             end
